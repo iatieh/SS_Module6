@@ -1,0 +1,4 @@
+python main.py add_user username password role
+python main.py add_artifact owner_id name type file_path
+python main.py view_artifacts
+python main.py update_role username new_role
