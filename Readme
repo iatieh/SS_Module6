@@ -2,3 +2,19 @@ python main.py add_user username password role
 python main.py add_artifact owner_id name type file_path
 python main.py view_artifacts
 python main.py update_role username new_role
+
+
+-----------------
+Introduction
+
+
+
+
+
+------------------------
+
+Using Python commands will be able to create secure storage that allow users to store dfferent type of
+In this application will have two type of users, Admin and normal user. the administrators can create and delete artefacts, and users that can add, view and modify their own entries and view but cannot modify those of others
+
+
+
