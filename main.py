@@ -5,12 +5,8 @@ from database import initialize_database, add_user, add_artifact, delete_artifac
 from utils import generate_key, encrypt_content, generate_checksum, get_timestamp
 
 def print_logo():
-    logo = """
-    =======================================
-                     IYAD
-    Secure Enclave for Music Artifacts
-    =======================================
-    """
+    with open('logo.txt', 'r') as file:
+        logo = file.read()
     print(logo)
 
 def view_artifacts():
