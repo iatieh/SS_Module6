@@ -42,3 +42,11 @@ def add_artifact(owner_id, name, artifact_type, encrypted_content, checksum, tim
                  VALUES (?, ?, ?, ?, ?, ?)''', (owner_id, name, artifact_type, encrypted_content, checksum, timestamp))
     conn.commit()
     conn.close()
+
+def delete_artifact(artifact_id):
+    conn = sqlite3.connect('iyad.db')
+    c = conn.cursor()
+    c.execute('DELETE FROM artifacts WHERE id = ?', (artifact_id,))
+    conn.commit()
+    conn.close()
+
