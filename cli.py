@@ -6,7 +6,7 @@ from utils import generate_key, encrypt_content, generate_checksum, get_timestam
 def print_logo():
     logo = """
     =======================================
-                     IYAD
+              #Secure Wallet#
     Secure Enclave for Music Artifacts
     =======================================
     """
