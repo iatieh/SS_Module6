@@ -1,4 +1,5 @@
 import sqlite3
+import getpass
 from database import initialize_database, add_user, add_artifact, delete_artifact, modify_artifact
 from utils import get_timestamp
 
@@ -14,7 +15,7 @@ def authenticate_user():
     Returns a tuple of user_id and role if authentication is successful.
     """
     username = input("Enter username: ")
-    password = input("Enter password: ")
+    password = getpass.getpass("Enter password: ")
     conn = sqlite3.connect('DB1.db')
     c = conn.cursor()
     c.execute('SELECT id, role FROM users WHERE username = ? AND password = ?', (username, password))
@@ -91,7 +92,7 @@ def menu():
 
         if choice == '1' and role == 'admin':
             username = input("Enter username: ")
-            password = input("Enter password: ")
+            password = getpass.getpass("Enter password: ")
             role_input = input("Enter role (admin/user): ")
             add_user(username, password, role_input)
             print(f"User {username} added successfully.")
@@ -115,4 +116,3 @@ def menu():
 if __name__ == '__main__':
     initialize_database()
     menu()
-
