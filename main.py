@@ -1,8 +1,6 @@
-# main.py
-import argparse
 import sqlite3
-from database import initialize_database, add_user, add_artifact, delete_artifact
-from utils import generate_key, encrypt_content, generate_checksum, get_timestamp
+from database import initialize_database, add_user, add_artifact, delete_artifact, modify_artifact
+from utils import get_timestamp
 
 def print_logo():
     """Read and print the logo from logo.txt file."""
@@ -17,7 +15,7 @@ def authenticate_user():
     """
     username = input("Enter username: ")
     password = input("Enter password: ")
-    conn = sqlite3.connect('iyad.db')
+    conn = sqlite3.connect('DB1.db')
     c = conn.cursor()
     c.execute('SELECT id, role FROM users WHERE username = ? AND password = ?', (username, password))
     user = c.fetchone()
@@ -33,7 +31,7 @@ def view_artifacts(user_id, role):
     View artifacts owned by the user if the user is not an admin.
     Admins can view all artifacts.
     """
-    conn = sqlite3.connect('iyad.db')
+    conn = sqlite3.connect('DB1.db')
     c = conn.cursor()
     if role == 'admin':
         c.execute('SELECT * FROM artifacts')
@@ -48,31 +46,27 @@ def view_artifacts(user_id, role):
     else:
         print("No artifacts found.")
 
-def update_user_role(username, new_role):
-    """Update the role of a user."""
-    conn = sqlite3.connect('iyad.db')
-    c = conn.cursor()
-    c.execute('UPDATE users SET role = ? WHERE username = ?', (new_role, username))
-    conn.commit()
-    conn.close()
+def delete_artifact_by_id(user_id, role):
+    """
+    Delete an artifact if the user is an admin.
+    Regular users are not allowed to delete artifacts.
+    """
+    if role != 'admin':
+        print("Permission denied. Only admins can delete artifacts.")
+        return
 
-def delete_artifact(user_id, role):
-    """
-    Delete an artifact if the user is the owner or if the user is an admin.
-    """
     artifact_id = input("Enter artifact ID to delete: ")
-    conn = sqlite3.connect('iyad.db')
-    c = conn.cursor()
-    if role == 'admin':
-        c.execute('DELETE FROM artifacts WHERE id = ?', (artifact_id,))
-    else:
-        c.execute('DELETE FROM artifacts WHERE id = ? AND owner_id = ?', (artifact_id, user_id))
-    conn.commit()
-    conn.close()
-    if c.rowcount == 0:
-        print("No artifact found or you don't have permission to delete this artifact.")
-    else:
-        print(f"Artifact {artifact_id} deleted successfully.")
+    delete_artifact(artifact_id)
+    print(f"Artifact {artifact_id} deleted successfully.")
+
+def modify_user_artifact(user_id):
+    """
+    Modify an artifact if the user is the owner of the artifact.
+    """
+    artifact_id = input("Enter artifact ID to modify: ")
+    file_path = input("Enter path to the new artifact file: ")
+    modify_artifact(artifact_id, user_id, file_path)
+    print(f"Artifact {artifact_id} modified successfully.")
 
 def menu():
     """
@@ -89,8 +83,9 @@ def menu():
         print("1. Add User")
         print("2. Add Artifact")
         print("3. View Artifacts")
-        print("4. Delete Artifact")
-        print("5. Exit")
+        print("4. Modify Artifact")
+        print("5. Delete Artifact (Admin Only)")
+        print("6. Exit")
 
         choice = input("Select an option: ")
 
@@ -101,23 +96,18 @@ def menu():
             add_user(username, password, role_input)
             print(f"User {username} added successfully.")
         elif choice == '2':
-            owner_id = user_id
             name = input("Enter artifact name: ")
             artifact_type = input("Enter artifact type (lyric/score/recording): ")
             file_path = input("Enter path to artifact file: ")
-            with open(file_path, 'rb') as file:
-                content = file.read()
-            key = generate_key()
-            encrypted_content = encrypt_content(content, key)
-            checksum = generate_checksum(content)
-            timestamp = get_timestamp()
-            add_artifact(owner_id, name, artifact_type, encrypted_content, checksum, timestamp)
+            add_artifact(user_id, name, artifact_type, file_path)
             print(f"Artifact {name} added successfully.")
         elif choice == '3':
             view_artifacts(user_id, role)
         elif choice == '4':
-            delete_artifact(user_id, role)
+            modify_user_artifact(user_id)
         elif choice == '5':
+            delete_artifact_by_id(user_id, role)
+        elif choice == '6':
             break
         else:
             print("Invalid choice or insufficient permissions. Please try again.")
@@ -125,3 +115,4 @@ def menu():
 if __name__ == '__main__':
     initialize_database()
     menu()
+
