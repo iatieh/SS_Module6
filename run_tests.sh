@@ -19,5 +19,5 @@ bandit -r .
 echo "Running unit tests..."
 python -m unittest discover -s tests
 
-# Deactivate virtual environment
-deactivate
+  # Deactivate virtual environment
+  deactivate
