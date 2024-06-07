@@ -164,9 +164,11 @@ Summary of Steps
 How to Run the Script
 
 Make the Script Executable:
+
 chmod +x run_tests.sh
 
-Run the Script: Execute the script from your project directory.
+Run the Script: Execute the script from your project directory
+
 ./run_tests.sh
 
 Conclusion
