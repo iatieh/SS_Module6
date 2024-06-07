@@ -32,10 +32,11 @@ Explanation of Design Patterns
     database operations, and utility functions. This makes the codebase easier to manage and understand.
 
 2.	Application Patterns:
-o	The initialize_database function ensures the database schema is set up correctly, acting as a singleton to initialize the database once.
-o	The menu function in main.py acts as a facade, providing a simplified interface for users to interact with the application. It hides the complexity of the underlying system and presents clear options.
-o	Functions like add_user, add_artifact, and delete_artifact in database.py act as factory methods to handle the creation and deletion of records in the database.
-o	The encrypt_content and decrypt_content functions in utils.py act as decorators by adding encryption and decryption functionality to the stored or retrieved content.
+- The initialize_database function ensures the database schema is set up correctly, acting as a singleton to initialize the database once.
+- The menu function in main.py acts as a facade, providing a simplified interface for users to interact with the application. It hides the complexity of the underlying system and presents clear options.
+- Functions like add_user, add_artifact, and delete_artifact in database.py act as factory methods to handle the creation and deletion of records in the database.
+- The encrypt_content and decrypt_content functions in utils.py act as decorators by adding encryption and decryption functionality to the stored or retrieved content.
+
 Directory Structure
 The project directory is organized as follows:
 •	Database.py
@@ -44,6 +45,7 @@ The project directory is organized as follows:
 •	utils.py
 •	requirements.txt
 •	run_tests.sh
+
 Setup and Installation
 
  Step 1: Clone the Repository
@@ -82,6 +84,7 @@ The getpass module provides a way to prompt the user for a password without echo
 •	Main Menu
 
 After successful authentication, you will see the main menu with the following options:
+
 Options:
 1. Add User
 2. Add Artifact
@@ -89,6 +92,7 @@ Options:
 4. Delete Artifact
 5. Exit
 Select an option:
+
 •	Adding a User
 To add a new user (admin only), select option 1 and provide the required details.
 Select an option: 1
