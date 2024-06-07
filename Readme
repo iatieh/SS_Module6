@@ -1,20 +1,124 @@
-python main.py add_user username password role
-python main.py add_artifact owner_id name type file_path
-python main.py view_artifacts
-python main.py update_role username new_role
-
-
------------------
 Introduction
 
+Secure Wallet is a command-line application designed to securely store and manage musical artifacts, including lyrics, music scores, and digital audio recordings (such as MP3 files). The application ensures the integrity and security of these artifacts by calculating checksums, encrypting the content, and maintaining role-based access control. Secure Wallet supports different user roles, including administrators who can manage users and artifacts, and regular users who can manage their own artifacts.
+Importance of Secure Storage for Music Artifacts
+In the digital age, protecting intellectual property is more critical than ever. Musicians and composers invest significant time and resources into creating their work. Unauthorized access, distribution, and modification of these works can lead to substantial financial and reputational damage. The secure Wallet application addresses these concerns by providing secure, encrypted storage in a digital environment that ensures only authorized individuals can access it using authentication mechanisms and enhanced access control that determines who can view, delete, or modify stored music artifacts, preventing unauthorized access. (Exploring Cloud Storage Options for Robust Data Management, 2024).
+
+Application Design:
+
+Based on the design submitted in Unit 3, this application is constructed using the Python language to transform the UML design into a secure application that allows all users to upload, modify, and update their own artifacts. Admins have the ability to upload and delete artifacts for all users. The application design confirms the necessity of user authentication, and the user's level of action is contingent upon the role they have been allocated. Additionally, the application implements the security features in accordance with the submitted design, taking into account the encryption and checksum when storing the artifacts in the database.
+Key Security Features in this application
+1.	Checksum Calculation: Ensures the integrity of stored files by detecting any unauthorized modifications.
+2.	Encryption: Protects the content of artifacts from unauthorized access using robust encryption techniques.
+3.	Role-Based Access Control: Restricts access to sensitive operations based on user roles, ensuring that only authorized users can perform certain actions.
+Main Modules
+•	User Management: Add and manage users with different roles (admin/user).
+•	Artifact Management: Add, view, and delete musical artifacts.
+•	Security: Calculate and store checksums to ensure data integrity and encrypt artifact content.
+•	Role-Based Access Control: Ensure that only authorized users can view or modify artifacts.
+•	Using automated testing tools (Linters).
+Explanation of Design Patterns
+1.	Separation of Concerns:
+o	The application is divided into multiple modules (main.py, database.py, utils.py) to separate the concerns of user interaction, database operations, and utility functions. This makes the codebase easier to manage and understand.
+2.	Application Patterns:
+o	The initialize_database function ensures that the database schema is set up correctly, acting as a singleton to initialize the database once.
+o	The menu function in main.py acts as a facade, providing a simplified interface for the user to interact with the application. It hides the complexity of the underlying system and presents clear options.
+o	Functions like add_user, add_artifact, and delete_artifact in database.py act as factory methods to handle the creation and deletion of records in the database.
+o	The encrypt_content and decrypt_content functions in utils.py act as decorators by adding encryption and decryption functionality to the content being stored or retrieved.
+By organizing the application this way and providing detailed comments, it becomes easier to understand its flow and how different parts interact to implement the required functionality.
+Directory Structure
+The project directory is organized as follows:
+•	DB1.py
+•	logo.txt
+•	main.py
+•	utils.py
+•	Test_sample.py
+•	requirements.txt
+•	run_tests.sh
+
+Setup and Installation
+Step 1: Clone the Repository
+
+Clone the repository to your local machine:
+git clone https://github.com/iatieh/SS_Module6.git
+cd SS_Module6
+         Step 2: Create a Virtual Environment
+          Create and activate a virtual environment:
+python3 -m venv .venv
+source .venv/bin/activate
+Step 3: Install Dependencies
+Install the necessary dependencies using requirements.txt:
+pip install -r requirements.txt
+Step 4: Run the Application
+Start the application by running main.py:
+python3 main.py
+Application Usage
+•	Authentication
+To access the application for the first time, the code will run the initialize database function to create a default admin user (admin with password admin123). This ensures that there is always at least one account available for initial authentication. When you start the application, you will be prompted to enter your username and password to authenticate.
+Enter username: user1
+Enter password: user1password
+Note: To ensure that the password is hidden, we use the getpass module in Python when the user types it. The getpass module provides a way to prompt the user for a password without echoing it back to the screen (getpass — Portable password input, no date).
+•	Main Menu
+After successful authentication, you will see the main menu with the following options:
+Options:
+1. Add User
+2. Add Artifact
+3. View Artifacts
+4. Delete Artifact
+5. Exit
+Select an option:
+•	Adding a User
+To add a new user (admin only), select option 1 and provide the required details.
+Select an option: 1
+Enter username: newuser
+Enter password: new password
+Enter role (admin/user): user
+User new user added successfully.
+•	Adding an Artifact:
+To add an artifact, select option 2 and provide the required details.
+Select an option: 2
+Enter artifact name: My Song
+Enter artifact type (lyric/score/recording): recording
+Enter path to artifact file: path/to/song.mp3
+Artifact My Song added successfully.
+•	Viewing Artifacts
+To view artifacts, select option 3. Admins can view all artifacts, while regular users can only view their own artifacts.
+Select an option: 3
+Artifacts:
+ID: 1, Owner ID: 1, Name: My Song, Type: recording, Checksum: d8e8fca2dc0f896fd7cb4cb0031ba249, Created At: 2023-01-01T00:00:00, Modified At: None
 
 
+Deleting an Artifact
+To delete an artifact, select option 4 and provide the artifact ID. Admins only can delete any artifact, while regular users can’t.
+Select an option: 4
+Enter artifact ID to delete: 1
+Artifact 1 deleted successfully.
+Exiting the Application
+Select an option: 5
+Code Overview
+In this section, we will describe the code based on each module:
+main.py
+This module provides the command-line interface for interacting with the application. It includes functions for authenticating users, displaying the main menu, and handling user input. It integrates with the database.py and utils.py modules to perform operations such as adding users and artifacts, viewing artifacts, and deleting artifacts.
+database.py
+This module handles all database operations, including initializing the database, adding users, adding artefacts, and deleting artefacts. It ensures the database schema is set up correctly, creates tables if they do not exist, and provides functions to add and delete records.
+utils.py
+This module provides utility functions for generating checksums, encrypting and decrypting content, and getting the current timestamp. These functions are essential for ensuring data integrity and security within the application.
+Encryption Process:
+•	Generate a Key, to create a secure key. This key is a URL-safe base64-encoded 32-byte key.
+•	Encrypt Content, The encryption ensures that the data is converted into a form that cannot be easily read without the key.
+•	Decrypt Content, This process reverses the encryption, making the data readable again.
 
 
-------------------------
-
-Using Python commands will be able to create secure storage that allow users to store dfferent type of
-In this application will have two type of users, Admin and normal user. the administrators can create and delete artefacts, and users that can add, view and modify their own entries and view but cannot modify those of others
-
-
-
+Testing the application security
+Unit Tests
+The tests directory includes unit tests, which you can run using the unittest framework. Before running tests, ensure you are in the virtual environment.
+python -m unittest discover -s tests
+Automated Testing Script
+A script named run_tests.sh is provided to automate the process of running linting, security checks, and unit tests. Ensure the script is executable:
+chmod +x run_tests.sh
+Run the script:
+./run_tests.sh
+run_tests.sh
+This script installs dependencies, runs flake8 for linting, bandit for security checks, and unittest for unit tests.
+Conclusion
+Secure Wallet application provides a robust and secure solution for storing and managing musical artifacts. With its focus on security features like checksum calculation, encryption, and role-based access control, it ensures that sensitive musical content is protected from unauthorized access and modifications. The application's modular design and clear user interface make it an effective tool for musicians, composers, and anyone involved in the management of musical intellectual property.
