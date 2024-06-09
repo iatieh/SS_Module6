@@ -1,8 +1,9 @@
 Introduction:
 
 Secure Wallet is a command-line application designed to securely store and manage musical artifacts, including lyrics,
-music scores, and digital audio recordings (such as MP3 files). The application ensures the integrity and security of these artifacts by calculating checksums, encrypting the content,
-and maintaining role-based access control. Secure Wallet supports different user roles, including administrators who can manage users and artifacts, and regular users who can manage their own artifacts.
+music scores, and digital audio recordings (such as MP3 files). The application ensures the integrity and security of
+these artifacts by calculating checksums, encrypting the content,and maintaining role-based access control. Secure Wallet supports different user roles,
+including administrators who can manage users and artifacts, and regular users who can manage their own artifacts.
 
 Importance of Secure Storage for Music Artifacts:
 
@@ -47,7 +48,7 @@ The project directory is organized as follows:
 •	requirements.txt
 •	run_tests.sh
 
-Setup and Installation
+Setup and Installation:
 
  Step 1: Clone the Repository
 
@@ -82,7 +83,7 @@ Enter password: user1password
 Note: To ensure the password is hidden, we use the getpass module in Python when the user types it.
 The getpass module provides a way to prompt the user for a password without echoing it back to the screen (getpass — Portable password input, no date).
 
-•	Main Menu
+•	Main Menu:
 
 After successful authentication, you will see the main menu with the following options:
 
@@ -128,9 +129,10 @@ Artifact 1 deleted successfully.
 •	Exiting the Application
 Select an option: 5
 
-Code Overview
+Code Overview:
 
 In this section, we will describe the code based on each module:
+
 main.py
 This module provides the command-line interface for interacting with the application. It includes functions for authenticating users,
 displaying the main menu, and handling user input. It integrates with the database.py and utils.py modules to perform operations such as adding users and artifacts and viewing and deleting them.
@@ -149,7 +151,7 @@ Encryption Process:
 •	Decrypt Content: This process reverses the encryption, making the data readable again.
 
 
-Unit Tests
+Unit Tests:
 
 This script automates several steps in your development workflow, including activating the virtual environment,
 installing dependencies, running linting and security checks, and executing unit tests.
