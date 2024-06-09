@@ -3,14 +3,6 @@ import hashlib
 from datetime import datetime
 from cryptography.fernet import Fernet
 
-def generate_checksum(content):
-    """
-    Generate a SHA-256 checksum for the given content.
-    This is used to verify the integrity of the artifact.
-    """
-    sha256 = hashlib.sha256()
-    sha256.update(content)
-    return sha256.hexdigest()
 
 def generate_key():
     """
