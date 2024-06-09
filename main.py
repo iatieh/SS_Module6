@@ -1,7 +1,6 @@
 import sqlite3
 import getpass
 from database import initialize_database, add_user, add_artifact, delete_artifact, modify_artifact
-from utils import get_timestamp
 
 def print_logo():
     """Read and print the logo from logo.txt file."""
@@ -13,6 +12,7 @@ def authenticate_user():
     """
     Authenticate the user by checking the username and password.
     Returns a tuple of user_id and role if authentication is successful.
+    Uses the `getpass` module to securely handle password input.
     """
     username = input("Enter username: ")
     password = getpass.getpass("Enter password: ")
@@ -69,17 +69,12 @@ def modify_user_artifact(user_id):
     modify_artifact(artifact_id, user_id, file_path)
     print(f"Artifact {artifact_id} modified successfully.")
 
-def menu():
+def menu(user_id, role):
     """
     Display the main menu and process user input.
     Uses a loop to keep the menu active until the user chooses to exit.
     """
-    user = authenticate_user()
-    if not user:
-        return
-    user_id, role = user
     while True:
-        print_logo()
         print("Options:")
         print("1. Add User")
         print("2. Add Artifact")
@@ -115,4 +110,9 @@ def menu():
 
 if __name__ == '__main__':
     initialize_database()
-    menu()
+    print_logo()
+    user = authenticate_user()
+    if user:
+        user_id, role = user
+        menu(user_id, role)
+
