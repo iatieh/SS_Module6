@@ -65,9 +65,18 @@ def modify_user_artifact(user_id):
     Modify an artifact if the user is the owner of the artifact.
     """
     artifact_id = input("Enter artifact ID to modify: ")
-    file_path = input("Enter path to the new artifact file: ")
-    modify_artifact(artifact_id, user_id, file_path)
-    print(f"Artifact {artifact_id} modified successfully.")
+    conn = sqlite3.connect('DB1.db')
+    c = conn.cursor()
+    c.execute('SELECT owner_id FROM artifacts WHERE id = ?', (artifact_id,))
+    artifact = c.fetchone()
+    conn.close()
+
+    if artifact and artifact[0] == user_id:
+        file_path = input("Enter path to the new artifact file: ")
+        modify_artifact(artifact_id, user_id, file_path)
+        print(f"Artifact {artifact_id} modified successfully.")
+    else:
+        print("Permission denied. You can only modify your own artifacts.")
 
 def menu(user_id, role):
     """
@@ -115,4 +124,5 @@ if __name__ == '__main__':
     if user:
         user_id, role = user
         menu(user_id, role)
+
 
