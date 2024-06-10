@@ -73,9 +73,9 @@ Start the application by running main.py:
 
 python3 main.py
 
-Application Usage
+Application Usage:
 
-•	Authentication
+•	Authentication:
 To access the application for the first time, the code will run the initialize database function to create a default admin user (admin with password admin123).
 This ensures that at least one account is always available for initial authentication. When you start the application, you will be prompted to enter your username and password to authenticate.
 Enter username: user1
@@ -91,11 +91,12 @@ Options:
 1. Add User
 2. Add Artifact
 3. View Artifacts
-4. Delete Artifact
-5. Exit
+4. Modify Artifacts
+5. Delete Artifact
+6. Exit
 Select an option:
 
-•	Adding a User
+•	Adding a User:
 To add a new user (admin only), select option 1 and provide the required details.
 Select an option: 1
 Enter username: new user
@@ -111,23 +112,28 @@ Enter artifact type (lyric/score/recording): recording
 Enter path to artifact file: path/to/song.mp3
 Artifact My Song added successfully.
 
-•	Viewing Artifacts
+•	Viewing Artifacts:
 To view artifacts, select option 3. Admins can view all artifacts, while regular users can only view their own artifacts.
 Select an option: 3
 Artifacts:
 ID: 1, Owner ID: 1, Name: My Song, Type: recording, Checksum: d8e8fca2dc0f896fd7cb4cb0031ba249, Created At: 2023-01-01T00:00:00, Modified At: None
 
+.   Modify Artifacts:
+To Modify artifacts, select option 4. regular users can only modify their own artifacts.
+Select an option: 4
+
+
 
 •	Deleting an Artifact
 
-To delete an artifact, select option 4 and provide the artifact ID. Admins can only delete any artifact, while regular users cannot.
-Select an option: 4
+To delete an artifact, select option 5 and provide the artifact ID. Admins can only delete any artifact, while regular users cannot.
+Select an option: 5
 Enter artifact ID to delete: 1
 Artifact 1 deleted successfully.
 
 
 •	Exiting the Application
-Select an option: 5
+Select an option: 6
 
 Code Overview:
 
@@ -156,7 +162,7 @@ Unit Tests:
 This script automates several steps in your development workflow, including activating the virtual environment,
 installing dependencies, running linting and security checks, and executing unit tests.
 
-Summary of Steps
+Testing Steps:
 1.	Activate Virtual Environment: Ensures the script runs in an isolated environment with the necessary dependencies.
 2.	Install Dependencies: Installs required Python packages listed in requirements.txt.
 3.	Run Flake8: Lints the code to enforce coding standards and catch syntax and style errors.
