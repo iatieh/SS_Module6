@@ -1,5 +1,7 @@
 Introduction:
 
+new added
+
 Secure Wallet is a command-line application designed to securely store and manage musical artifacts, including lyrics,
 music scores, and digital audio recordings (such as MP3 files). The application ensures the integrity and security of
 these artifacts by calculating checksums, encrypting the content,and maintaining role-based access control. Secure Wallet supports different user roles,

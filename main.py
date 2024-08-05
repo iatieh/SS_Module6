@@ -27,6 +27,7 @@ def authenticate_user():
         print("Authentication failed. Please check your username and password.")
         return None
 
+#just test
 def view_artifacts(user_id, role):
     """
     View artifacts owned by the user if the user is not an admin.
